@@ -13,7 +13,7 @@ const Checkout = () => {
     const [user, loading] = useAuthState(auth);
     const itemsNumber = `${items.length ? items.length : "empty"}`;
     const email = `${user?.email ? user.email : "guest is here 🙂"}`;
-    let something = `${itemsNumber >= 2 ? "items." : "item."}`;
+    let something = `${itemsNumber >= 2 ? "items)." : "item)."}`;
 
     console.log(something)
     return (
@@ -31,7 +31,7 @@ const Checkout = () => {
                     />
 
                     <div className="flex flex-col p-5 space-y-10 bg-white shadow-md">
-                        <h1 className="text-3xl border-b pb-4">{items.length === 0 ? `${email} your Amazon basket is empty 🛍️` : `${email} your Amazon shopping basket ${itemsNumber} ${something}`}</h1>
+                        <h1 className="text-3xl border-b pb-4">{items.length === 0 ? `${email} your Amazon basket is empty 🛍️` : `${email} your Amazon shopping basket has ( ${itemsNumber} ${something}`}</h1>
 
                         {items.map((item, i) => (
                             <CheckoutProduct
@@ -50,14 +50,17 @@ const Checkout = () => {
                 </div>
 
             {/*    right*/}
-                <div>
+                <div className="flex flex-col bg-white p-10 shadow-xl">
                     {items.length > 0 && (
                         <>
-                            <h2>Subtotal ({items.length} items):
+                            <h2 className="whitespace-nowrap pt-5">Subtotal ({items.length} items):
                                 <span className="font-bold">
                                     {/*<Currency quantity={total} cur="USD" />*/}
                                 </span>
                             </h2>
+                            <button className={`button mt-2 p-100 ${!user && 'from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed focus:ring-0'} `}>
+                                {!user ? "Sign in to check out 🌶️" : "Proceed to check out 🛒"}
+                            </button>
                         </>
                     )}
                 </div>
